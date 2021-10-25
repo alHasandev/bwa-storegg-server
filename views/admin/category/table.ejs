@@ -1,0 +1,28 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>NO</th>
+      <th>Nama Platform</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < categories.length; i++) { %> 
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= categories[i].name %></td>
+        <td>
+          <form action="/category/delete/<%= categories[i]._id %>?_method=DELETE" method="post" onsubmit="return confirm('Apakah anda yakin akan menghapus data ?')">
+            <a href="/category/edit/<%= categories[i]._id %>" class="btn btn-sm btn-success">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+            <button class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% } %> 
+  </tbody>
+  </tfoot>
+</table>
