@@ -1,0 +1,67 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>NO</th>
+      <th>Nama Game</th>
+      <th>Kategori</th>
+      <th>Nominal</th>
+      <th>Status</th>
+      <th>Gambar</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < vouchers.length; i++) { %> 
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= vouchers[i].name %></td>
+        <td><%= vouchers[i].category.name %></td>
+        <td>
+          <% vouchers[i].nominals.forEach(nominal => { %> 
+          <span class="badge badge-secondary">
+            <%= `${nominal.coinName} x${nominal.coinQuantity}` %>
+          </span>  
+          <% }) %>
+        </td>
+        <td>
+          <% if (vouchers[i].status === 'Y') { %>
+          <span class="badge badge-success">
+            Aktif
+          </span>
+          <% } else { %>
+          <span class="badge badge-<%= (vouchers[i].status === 'Y') ? 'success' : 'danger' %>">
+            Tidak Aktif
+          </span>
+          <% } %>
+        </td>
+        <td>
+          <img src="/uploads/<%= vouchers[i].thumbnail %>" alt="thumbnail" class="img-thumbnail" width="64">
+        </td>
+        <td class="d-flex">
+          <form action="/voucher/status/<%= vouchers[i]._id %>?_method=PATCH" method="post" onsubmit="return confirm('Apakah anda yakin akan mengubah status ?')" class="mr-1">
+            <% if (vouchers[i].status === 'Y') { %>
+            <input type="hidden" name="status" value="N">
+            <button class="btn btn-sm btn-warning">
+              <i class="fas fa-power-off"></i>
+            </button>
+            <% } else { %>
+            <input type="hidden" name="status" value="Y">
+            <button class="btn btn-sm btn-primary">
+            <i class="fas fa-power-off"></i>
+            </button>
+            <% } %>
+          </form>
+          <a href="/voucher/edit/<%= vouchers[i]._id %>" class="btn btn-sm btn-success mr-1">
+            <i class="fas fa-pencil-alt"></i>
+          </a>
+          <form action="/voucher/delete/<%= vouchers[i]._id %>?_method=DELETE" method="post" onsubmit="return confirm('Apakah anda yakin akan menghapus data ?')">
+            <button class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% } %> 
+  </tbody>
+  </tfoot>
+</table>

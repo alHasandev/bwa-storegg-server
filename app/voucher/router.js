@@ -1,0 +1,34 @@
+const express = require("express");
+const multer = require("multer");
+const os = require("os");
+
+const {
+  index,
+  viewCreate,
+  actionCreate,
+  actionDelete,
+  viewEdit,
+  actionEdit,
+} = require("./controller");
+const router = express.Router();
+
+/* METHOD url listining */
+router.get("/", index);
+
+router.get("/create", viewCreate);
+router.post(
+  "/create",
+  multer({ dest: os.tmpdir() }).single("thumbnail"),
+  actionCreate
+);
+
+router.get("/edit/:id", viewEdit);
+router.put(
+  "/edit/:id",
+  multer({ dest: os.tmpdir() }).single("thumbnail"),
+  actionEdit
+);
+
+router.delete("/delete/:id", actionDelete);
+
+module.exports = router;

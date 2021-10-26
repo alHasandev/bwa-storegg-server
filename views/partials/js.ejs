@@ -39,6 +39,10 @@
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Select2 -->
+<script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -47,6 +51,13 @@
 <script src="/adminlte/dist/js/pages/dashboard.js"></script>
 <script>
   $(function () {
+    // Initialize bootstrap custom element
+    bsCustomFileInput.init();
+    
+    // Initialize Select2 Elements
+    $('.select2').select2()
+
+    // Initialize datatable
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

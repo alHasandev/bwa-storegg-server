@@ -1,0 +1,173 @@
+<%- include ../../partials/header.ejs %> <%- include ../../partials/navbar.ejs
+%> <%- include ../../partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Voucher</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item">
+              <a href="/">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/voucher">Voucher</a>
+            </li>
+            <li class="breadcrumb-item active">Edit</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <!-- general form elements -->
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Form Edit Voucher: <%= voucher.name %></h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form
+              action="/voucher/edit/<%= voucher._id %>?_method=PUT"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Nama Game</label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    class="form-control"
+                    placeholder="Masukkan nama game"
+                    value="<%= voucher.name %>"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="category">Kategori</label>
+                  <select
+                    name="category"
+                    id="category"
+                    class="form-control select2"
+                    style="width: 100%"
+                  >
+                    <option value="">Pilih Kategori</option>
+                    <% categories.forEach(category => { %>
+                    <option value="<%= category._id %>" <%= voucher?.category.toString() == category._id.toString() && 'selected' %>>
+                      <%= category.name %>
+                    </option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="nominals">Daftar Nominal</label>
+                  <select
+                    name="nominals"
+                    id="nominals"
+                    class="select2"
+                    multiple="multiple"
+                    data-placeholder="Pilih nominal"
+                    style="width: 100%"
+                  >
+                    <% nominals.forEach(nominal => { %>
+                    <option value="<%= nominal._id %>" <%= voucher.nominals.map(String).includes(nominal._id.toString()) && 'selected' %>>
+                      <%= nominal.coinName %> x<%= nominal.coinQuantity %>
+                    </option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="user">User</label>
+                  <select
+                    name="user"
+                    id="user"
+                    class="form-control select2"
+                    style="width: 100%"
+                  >
+                    <option value="" selected="selected">Pilih User</option>
+                    <option value="1">User 1</option>
+                    <option value="2">User 2</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="thumbnail">Upload Thumbnail</label>
+                  <div class="row">
+                    <label for="thumbnail" class="d-block col-3" role="button">
+                      <img
+                        src="/uploads/<%= voucher.thumbnail %>"
+                        alt="Preview"
+                        id="preview"
+                        class="img-thumbnail"
+                        width="100%"
+                      />
+                    </label>
+                    <div class="col-9">
+                      <div class="custom-file">
+                        <input
+                          type="file"
+                          class="custom-file-input"
+                          name="thumbnail"
+                          id="thumbnail"
+                        />
+                        <label class="custom-file-label" for="thumbnail"
+                          >Choose file</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+<%- include ../../partials/footer.ejs %> <%- include ../../partials/js.ejs %>
+
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        $("#preview").attr("src", e.target.result);
+        $("#preview").css({
+          width: "100%",
+          height: "100%",
+        });
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#thumbnail").change((e) => {
+    readURL(e.target);
+  });
+</script>
