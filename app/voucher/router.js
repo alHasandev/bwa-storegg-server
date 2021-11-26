@@ -9,6 +9,7 @@ const {
   actionDelete,
   viewEdit,
   actionEdit,
+  actionStatus,
 } = require("./controller");
 const router = express.Router();
 
@@ -30,5 +31,6 @@ router.put(
 );
 
 router.delete("/delete/:id", actionDelete);
+router.patch("/status/:id", actionStatus);
 
 module.exports = router;

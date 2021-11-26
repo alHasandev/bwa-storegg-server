@@ -189,4 +189,22 @@ module.exports = {
       res.redirect("/voucher");
     }
   },
+  actionStatus: async (req, res) => {
+    try {
+      // Find voucher by id and update it's status
+      const voucher = await Voucher.findOne({ _id: req.params.id });
+      voucher.status = req.body.status;
+      await voucher.save();
+
+      // Redirect message to page
+      req.flash("alertMessage", `Berhasil ubah status`);
+      req.flash("alertStatus", "success");
+      res.redirect("/voucher");
+    } catch (err) {
+      console.log(err);
+      req.flash("alertMessage", err.message);
+      req.flash("alertStatus", "danger");
+      res.redirect("/voucher");
+    }
+  },
 };
