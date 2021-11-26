@@ -1,0 +1,32 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>NO</th>
+      <th>Nama Pemilik</th>
+      <th>Nama Bank</th>
+      <th>No. Rekening</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < banks.length; i++) { %> 
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= banks[i].name %></td>
+        <td><%= banks[i].bankName %></td>
+        <td><%= banks[i].rekeningNumber %></td>
+        <td>
+          <form action="/bank/delete/<%= banks[i]._id %>?_method=DELETE" method="post" onsubmit="return confirm('Apakah anda yakin akan menghapus data ?')">
+            <a href="/bank/edit/<%= banks[i]._id %>" class="btn btn-sm btn-success">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+            <button class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% } %> 
+  </tbody>
+  </tfoot>
+</table>
