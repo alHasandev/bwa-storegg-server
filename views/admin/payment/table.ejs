@@ -1,0 +1,61 @@
+<table id="example2" class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>NO</th>
+      <th>Tipe Pembayaran</th>
+      <th>Banks</th>
+      <th>Status</th>
+      <th>Aksi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i < payments.length; i++) { %> 
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= payments[i].type %></td>
+        <td>
+          <% payments[i].banks.forEach(bank => { %> 
+            <span class="badge badge-secondary">
+              <%= `${bank.name} -${bank.bankName} (${bank.rekeningNumber})` %>
+            </span>  
+            <% }) %>
+        </td>
+        <td>
+          <% if (payments[i].status === 'Y') { %>
+            <span class="badge badge-success">
+              Aktif
+            </span>
+            <% } else { %>
+            <span class="badge badge-<%= (payments[i].status === 'Y') ? 'success' : 'danger' %>">
+              Tidak Aktif
+            </span>
+            <% } %>
+        </td>
+        <td class="d-flex">
+          <form action="/payment/status/<%= payments[i]._id %>?_method=PATCH" method="post" onsubmit="return confirm('Apakah anda yakin akan mengubah status ?')" class="mr-1">
+            <% if (payments[i].status === 'Y') { %>
+            <input type="hidden" name="status" value="N">
+            <button class="btn btn-sm btn-warning">
+              <i class="fas fa-power-off"></i>
+            </button>
+            <% } else { %>
+            <input type="hidden" name="status" value="Y">
+            <button class="btn btn-sm btn-primary">
+            <i class="fas fa-power-off"></i>
+            </button>
+            <% } %>
+          </form>
+          <form action="/payment/delete/<%= payments[i]._id %>?_method=DELETE" method="post" onsubmit="return confirm('Apakah anda yakin akan menghapus data ?')">
+            <a href="/payment/edit/<%= payments[i]._id %>" class="btn btn-sm btn-success">
+              <i class="fas fa-pencil-alt"></i>
+            </a>
+            <button class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% } %> 
+  </tbody>
+  </tfoot>
+</table>
