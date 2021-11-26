@@ -1,31 +1,9 @@
-const path = require("path");
-const fs = require("fs");
 const config = require("../../config");
+const { uploadImage, deleteFile } = require("../../helpers/file");
 
 const Voucher = require("./model");
 const Category = require("../category/model");
 const Nominal = require("../nominal/model");
-
-function uploadImage(dir, file, cb) {
-  try {
-    console.log("Upload Image!");
-    let tmp_path = file.path;
-    let fileNames = file.originalname.split(".");
-    let originalExt = fileNames[fileNames.length - 1];
-    let filename = file.filename + "." + originalExt;
-    let target_path = path.resolve(config.rootPath, `${dir}/${filename}`);
-
-    const src = fs.createReadStream(tmp_path);
-    const dest = fs.createWriteStream(target_path);
-
-    src.pipe(dest);
-    if (typeof cb === "function") {
-      src.on("end", () => cb(filename));
-    }
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 module.exports = {
   index: async (req, res) => {
@@ -135,9 +113,7 @@ module.exports = {
         uploadImage("public/uploads", req.file, async (filename) => {
           // delete existing image
           let currentImg = `${config.rootPath}/public/uploads/${voucher.thumbnail}`;
-          if (fs.existsSync(currentImg)) {
-            fs.unlinkSync(currentImg);
-          }
+          deleteFile(currentImg);
 
           voucher.thumbnail = filename;
           await voucher.save();
@@ -172,15 +148,16 @@ module.exports = {
     try {
       const condition = { _id: req.params.id };
       const voucher = await Voucher.findOne(condition);
-      // delete existing image
+      // Delete existing image
       let currentImg = `${config.rootPath}/public/uploads/${voucher.thumbnail}`;
-      if (fs.existsSync(currentImg)) {
-        fs.unlinkSync(currentImg);
-      }
+      deleteFile(currentImg);
+
+      // Delete voucher data by id
       result = await Voucher.deleteOne(condition);
+
+      // Redirect to page with message
       req.flash("alertMessage", `Berhasil hapus voucher`);
       req.flash("alertStatus", `success`);
-
       res.redirect("/voucher");
     } catch (err) {
       console.log(err);
