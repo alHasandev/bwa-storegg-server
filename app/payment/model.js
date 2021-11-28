@@ -16,7 +16,8 @@ const paymentSchema = mongoose.Schema({
     type: [ObjectId],
     ref: "bank",
   },
-});
+},
+{ timestamps: true });
 
 const Payment = mongoose.model("payment", paymentSchema);
 

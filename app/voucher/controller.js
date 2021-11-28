@@ -22,6 +22,7 @@ module.exports = {
       res.render("admin/voucher/view_voucher", {
         vouchers: vouchers,
         alert,
+        user: req.session.user,
       });
     } catch (err) {
       console.log(err);
@@ -34,7 +35,11 @@ module.exports = {
     try {
       const categories = await Category.find();
       const nominals = await Nominal.find();
-      res.render("admin/voucher/create", { categories, nominals });
+      res.render("admin/voucher/create", {
+        categories,
+        nominals,
+        user: req.session.user,
+      });
     } catch (err) {
       console.log(err);
     }
@@ -90,7 +95,12 @@ module.exports = {
       const nominals = await Nominal.find();
 
       console.log(voucher);
-      res.render("admin/voucher/edit", { voucher, categories, nominals });
+      res.render("admin/voucher/edit", {
+        voucher,
+        categories,
+        nominals,
+        user: req.session.user,
+      });
     } catch (err) {
       console.log(err);
       req.flash("alertMessage", err.message);

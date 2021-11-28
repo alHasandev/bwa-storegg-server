@@ -13,7 +13,8 @@ const nominalSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-});
+},
+{ timestamps: true });
 
 const Nominal = mongoose.model("nominal", nominalSchema);
 

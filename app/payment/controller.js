@@ -16,6 +16,7 @@ module.exports = {
       res.render("admin/payment/view_payment", {
         payments,
         alert,
+        user: req.session.user,
       });
     } catch (err) {
       console.log(err);
@@ -27,7 +28,7 @@ module.exports = {
   viewCreate: async (req, res) => {
     try {
       const banks = await Bank.find();
-      res.render("admin/payment/create", { banks });
+      res.render("admin/payment/create", { banks, user: req.session.user });
     } catch (err) {
       console.log(err);
     }
@@ -61,7 +62,11 @@ module.exports = {
       const banks = await Bank.find();
 
       console.log(payment);
-      res.render("admin/payment/edit", { payment, banks });
+      res.render("admin/payment/edit", {
+        payment,
+        banks,
+        user: req.session.user,
+      });
     } catch (err) {
       console.log(err);
       req.flash("alertMessage", err.message);

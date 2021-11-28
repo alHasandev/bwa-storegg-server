@@ -14,6 +14,7 @@ module.exports = {
       res.render("admin/category/view_category", {
         categories,
         alert,
+        user: req.session.user,
       });
     } catch (err) {
       console.log(err);
@@ -24,7 +25,7 @@ module.exports = {
   },
   viewCreate: async (req, res) => {
     try {
-      res.render("admin/category/create");
+      res.render("admin/category/create", { user: req.session.user });
     } catch (err) {
       console.log(err);
     }
@@ -50,7 +51,7 @@ module.exports = {
       const category = await Category.findOne({ _id: req.params.id });
       console.log(category);
 
-      res.render("admin/category/edit", { category });
+      res.render("admin/category/edit", { category, user: req.session.user });
     } catch (err) {
       console.log(err);
       req.flash("alertMessage", err.message);
