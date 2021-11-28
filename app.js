@@ -9,13 +9,15 @@ const flash = require("connect-flash");
 const db = require("./db");
 
 // get routers
-const dashboardRouter = require("./app/dashboard/router");
-const categoryRouter = require("./app/category/router");
-const nominalRouter = require("./app/nominal/router");
-const voucherRouter = require("./app/voucher/router");
-const bankRouter = require("./app/bank/router");
-const paymentRouter = require("./app/payment/router");
-const userRouter = require("./app/user/router");
+const {
+  dashboardRouter,
+  categoryRouter,
+  nominalRouter,
+  voucherRouter,
+  bankRouter,
+  paymentRouter,
+  userRouter,
+} = require("./app/router");
 
 // init express app
 const app = express();
