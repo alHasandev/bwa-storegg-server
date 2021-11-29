@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+
+const HASH_ROUND = 10;
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
@@ -54,6 +57,28 @@ const playerSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Validate: email must unique
+playerSchema.path("email").validate(
+  async function (value) {
+    try {
+      const count = await this.model("player").countDocuments({
+        email: value,
+      });
+
+      return !count;
+    } catch (err) {
+      throw err;
+    }
+  },
+  (attr) => `${attr.value} sudah terdaftar`
+);
+
+// Encrypt password before save
+playerSchema.pre("save", function (next) {
+  this.password = bcrypt.hashSync(this.password, HASH_ROUND);
+  next();
+});
 
 const Player = mongoose.model("player", playerSchema);
 
