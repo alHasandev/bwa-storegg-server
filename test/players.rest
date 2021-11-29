@@ -3,3 +3,7 @@ GET http://localhost:3000/api/v1/players/landing
 ###
 
 GET http://localhost:3000/api/v1/players/detail/603152e0a4dd027eefadde61
+
+###
+
+GET http://localhost:3000/api/v1/players/categories

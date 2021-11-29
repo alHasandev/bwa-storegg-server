@@ -1,4 +1,5 @@
 const Voucher = require("../voucher/model");
+const Category = require("../category/model");
 
 module.exports = {
   landingPage: async (req, res) => {
@@ -24,6 +25,20 @@ module.exports = {
         throw { code: 404, message: "Voucher game tidak ditemukan" };
 
       res.status(200).json({ data: voucher });
+    } catch (err) {
+      console.log(err);
+      res
+        .status(err.code || 500)
+        .json({ message: err.message || "Internal server error" });
+    }
+  },
+  getCategories: async (req, res) => {
+    try {
+      const categories = await Category.find();
+
+      res.status(200).json({
+        data: categories,
+      });
     } catch (err) {
       console.log(err);
       res
