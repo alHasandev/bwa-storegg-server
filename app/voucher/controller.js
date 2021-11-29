@@ -159,8 +159,7 @@ module.exports = {
       const condition = { _id: req.params.id };
       const voucher = await Voucher.findOne(condition);
       // Delete existing image
-      let currentImg = `${config.rootPath}/public/uploads/${voucher.thumbnail}`;
-      deleteFile(currentImg);
+      deleteFile("public/uploads", voucher.thumbnail);
 
       // Delete voucher data by id
       result = await Voucher.deleteOne(condition);
