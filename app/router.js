@@ -7,6 +7,7 @@ const bankRouter = require("./bank/router");
 const paymentRouter = require("./payment/router");
 const userRouter = require("./user/router");
 const transactionRouter = require("./transaction/router");
+const playerRouter = require("./player/router");
 
 module.exports = {
   dashboardRouter,
@@ -17,4 +18,5 @@ module.exports = {
   paymentRouter,
   userRouter,
   transactionRouter,
+  playerRouter,
 };

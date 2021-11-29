@@ -18,11 +18,12 @@ const {
   paymentRouter,
   userRouter,
   transactionRouter,
+  playerRouter,
 } = require("./app/router");
 
 // init express app
 const app = express();
-const PORT = 3000;
+const URL = "/api/v1";
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -65,6 +66,9 @@ app.use("/voucher", voucherRouter);
 app.use("/bank", bankRouter);
 app.use("/payment", paymentRouter);
 app.use("/transaction", transactionRouter);
+
+// API
+app.use(`${URL}/players`, playerRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
