@@ -7,3 +7,49 @@ GET http://localhost:3000/api/v1/players/detail/603152e0a4dd027eefadde61
 ###
 
 GET http://localhost:3000/api/v1/players/categories
+
+###
+
+POST http://localhost:3000/api/v1/players/checkout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF5ZXIiOnsiaWQiOiI2MWE0NzdmM2E2ZDc5NWRiMDAzNmRjZWMiLCJ1c2VybmFtZSI6ImFsYmllIiwiZW1haWwiOiJhbGJpZUBtYWlsLmNvbSIsIm5hbWUiOiJBbGJpZSIsInBob25lTnVtYmVyIjoiMDgyMTQ5MjU5ODI5In0sImlhdCI6MTY0ODQ0ODExOX0.YNT-7hfudwU-yRoai4MIvbgwIxyJOx0cXMhKJUE4p2U
+
+{
+  "accountUser": "821739", 
+  "name": "Mohamad Albie", 
+  "nominal": "60bebf503c9c29aa8d6ad448", 
+  "voucher": "603152e0a4dd027eefadde61", 
+  "payment": "60ae253c729f6e288f94cf44", 
+  "bank": "60ae2431196ccd27e6587ab1"
+}
+
+
+###
+
+GET http://localhost:3000/api/v1/players/history?status=pending
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF5ZXIiOnsiaWQiOiI2MWE0NzdmM2E2ZDc5NWRiMDAzNmRjZWMiLCJ1c2VybmFtZSI6ImFsYmllIiwiZW1haWwiOiJhbGJpZUBtYWlsLmNvbSIsIm5hbWUiOiJBbGJpZSIsInBob25lTnVtYmVyIjoiMDgyMTQ5MjU5ODI5In0sImlhdCI6MTY0ODQ0ODExOX0.YNT-7hfudwU-yRoai4MIvbgwIxyJOx0cXMhKJUE4p2U
+
+###
+
+GET http://localhost:3000/api/v1/players/history/60bcee695603e6693630c5de/detail
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF5ZXIiOnsiaWQiOiI2MWE0NzdmM2E2ZDc5NWRiMDAzNmRjZWMiLCJ1c2VybmFtZSI6ImFsYmllIiwiZW1haWwiOiJhbGJpZUBtYWlsLmNvbSIsIm5hbWUiOiJBbGJpZSIsInBob25lTnVtYmVyIjoiMDgyMTQ5MjU5ODI5In0sImlhdCI6MTY0ODQ0ODExOX0.YNT-7hfudwU-yRoai4MIvbgwIxyJOx0cXMhKJUE4p2U
+
+###
+
+GET http://localhost:3000/api/v1/players/dashboard
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF5ZXIiOnsiaWQiOiI2MWE0NzdmM2E2ZDc5NWRiMDAzNmRjZWMiLCJ1c2VybmFtZSI6ImFsYmllIiwiZW1haWwiOiJhbGJpZUBtYWlsLmNvbSIsIm5hbWUiOiJBbGJpZSIsInBob25lTnVtYmVyIjoiMDgyMTQ5MjU5ODI5In0sImlhdCI6MTY0ODQ0ODExOX0.YNT-7hfudwU-yRoai4MIvbgwIxyJOx0cXMhKJUE4p2U
+
+###
+
+GET http://localhost:3000/api/v1/players/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF5ZXIiOnsiaWQiOiI2MWE0NzdmM2E2ZDc5NWRiMDAzNmRjZWMiLCJ1c2VybmFtZSI6ImFsYmllIiwiZW1haWwiOiJhbGJpZUBtYWlsLmNvbSIsIm5hbWUiOiJBbGJpZSIsInBob25lTnVtYmVyIjoiMDgyMTQ5MjU5ODI5In0sImlhdCI6MTY0ODQ0ODExOX0.YNT-7hfudwU-yRoai4MIvbgwIxyJOx0cXMhKJUE4p2U
+
+###
+
+PATCH http://localhost:3000/api/v1/players/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwbGF5ZXIiOnsiaWQiOiI2MWE0NzdmM2E2ZDc5NWRiMDAzNmRjZWMiLCJ1c2VybmFtZSI6ImFsYmllIiwiZW1haWwiOiJhbGJpZUBtYWlsLmNvbSIsIm5hbWUiOiJBbGJpZSIsInBob25lTnVtYmVyIjoiMDgyMTQ5MjU5ODI5In0sImlhdCI6MTY0ODQ0ODExOX0.YNT-7hfudwU-yRoai4MIvbgwIxyJOx0cXMhKJUE4p2U
+
+{
+  "phoneNumber": "082149259828"
+}

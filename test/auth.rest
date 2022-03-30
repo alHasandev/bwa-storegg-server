@@ -9,3 +9,13 @@ content-type: application/json
     "phoneNumber": "082149259829"
 }
 
+###
+
+POST http://localhost:3000/api/v1/auth/signin
+Content-Type: application/json
+
+{
+  "email": "albie@mail.com",
+  "password": "password1234"
+}
+

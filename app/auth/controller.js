@@ -1,5 +1,9 @@
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const Player = require("../player/model");
 const { uploadImage, deleteFile } = require("../../helpers/file");
+const config = require("../../config");
 
 module.exports = {
   signup: async (req, res) => {
@@ -40,6 +44,43 @@ module.exports = {
           message: err.message,
           fields: err.errors,
         });
+    }
+  },
+  signin: async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+
+      // Check email
+      const player = await Player.findOne({ email: email });
+      if (!player) throw { code: 401, message: "Email atau password salah" };
+
+      // Check password
+      const checkPassword = await bcrypt.compare(password, player.password);
+      if (!checkPassword)
+        throw { code: 401, message: "Email atau password salah" };
+
+      // Save token
+      const token = jwt.sign(
+        {
+          player: {
+            id: player.id,
+            username: player.username,
+            email: player.email,
+            name: player.name,
+            phoneNumber: player.phoneNumber,
+            avatar: player.avatar,
+          },
+        },
+        config.jwtKey
+      );
+
+      res.status(200).json({
+        data: { token },
+      });
+    } catch (error) {
+      res.status(error.code || 500).json({
+        message: error.message || `Internal server error`,
+      });
     }
   },
 };

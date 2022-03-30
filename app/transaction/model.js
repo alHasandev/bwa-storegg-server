@@ -76,9 +76,9 @@ const transactionSchema = mongoose.Schema(
       type: ObjectId,
       ref: "player",
     },
-    cathegory: {
+    category: {
       type: ObjectId,
-      ref: "cathegory",
+      ref: "category",
     },
     historyUser: {
       name: {

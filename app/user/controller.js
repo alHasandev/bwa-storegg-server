@@ -33,6 +33,7 @@ module.exports = {
 
       // Check if password is match
       const checkPassword = await bcrypt.compare(password, user.password);
+      // const checkPassword = true;
       if (!checkPassword) throw { message: `Email atau password salah` };
 
       // Save user session
@@ -51,6 +52,36 @@ module.exports = {
       console.log(err);
       req.flash("alertMessage", err.message);
       req.flash("alertStatus", "danger");
+      res.redirect("/");
+    }
+  },
+  actionSignUp: async (req, res) => {
+    try {
+      const { email, name, password, phoneNumber } = req.body;
+
+      const user = await User.findOne({ email: email });
+
+      // Check if user exist
+      if (user) throw { message: `User dengan email ${email} sudah terdaftar` };
+
+      const SALT_ROUNDS = 10;
+      const salt = await bcrypt.genSalt(SALT_ROUNDS);
+      const encryptedPassword = await bcrypt.hash(password, salt);
+
+      await new User({
+        email,
+        name,
+        phoneNumber,
+        password: encryptedPassword,
+      }).save();
+
+      res.json({
+        message: "berhasil",
+      });
+    } catch (error) {
+      console.log(err);
+      req.flash("alertMessage", err.message);
+      req.flash("alertStatus", "warning");
       res.redirect("/");
     }
   },
