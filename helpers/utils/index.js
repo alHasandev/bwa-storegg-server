@@ -141,10 +141,6 @@ function formatRelativeDate(toDate, fromDate = new Date()) {
   }
 }
 
-const currentDate = new Date();
-const tomorrow = new Date().setDate(currentDate.getDate() + 8);
-console.log('format date relative', formatRelativeDate(tomorrow));
-
 module.exports = {
   groupByNested,
 };
