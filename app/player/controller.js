@@ -35,6 +35,10 @@ module.exports = {
       if (!voucher)
         throw { code: 404, message: 'Voucher game tidak ditemukan' };
 
+      // Add payments method
+      const payments = await Payment.find().populate('banks');
+      voucher._doc.payments = payments;
+
       res.status(200).json({ data: voucher });
     } catch (err) {
       console.log(err);
