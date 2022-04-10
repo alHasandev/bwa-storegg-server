@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+
+const config = require('../../config');
 const Voucher = require('../voucher/model');
 const Category = require('../category/model');
 const Nominal = require('../nominal/model');
@@ -267,8 +270,24 @@ module.exports = {
       // Exclude password
       delete player._doc.password;
 
-      // Send response
-      res.status(201).json({ data: player });
+      // Save token
+      const token = jwt.sign(
+        {
+          player: {
+            id: player.id,
+            username: player.username,
+            email: player.email,
+            name: player.name,
+            phoneNumber: player.phoneNumber,
+            avatar: player.avatar,
+          },
+        },
+        config.jwtKey
+      );
+
+      res.status(201).json({
+        data: { token },
+      });
     } catch (error) {
       console.log(error);
       return res
