@@ -88,7 +88,7 @@ module.exports = {
       // Buat rumus pajak
       const TAX_PERCENTAGE = 10;
       const tax = (TAX_PERCENTAGE / 100) * res_nominal._doc.price;
-      const neto = res_nominal._doc.price - tax;
+      const neto = res_nominal._doc.price + tax;
 
       // Menangani transaksi
       const payload = {
