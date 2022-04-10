@@ -256,7 +256,7 @@ module.exports = {
       // Update avatar image
       console.log('file', req.file);
       if (req.file) {
-        const avatar = await uploadImage('public/images', req.file);
+        const avatar = await uploadImage('public/uploads', req.file);
         payload.avatar = avatar || req.player.avatar;
       }
 
